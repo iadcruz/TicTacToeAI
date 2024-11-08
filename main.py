@@ -65,7 +65,7 @@ def game():
     display(board)
     while True:
         input_move = int(input("Make your move (0-8): "))
-        if board[input_move] != "_":
+        if input_move > 8 or input_move < 0 or board[input_move] != "_":
             print("Invalid move! Try again.")
             continue
         board[input_move] = "X"
