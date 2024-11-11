@@ -63,6 +63,13 @@ def list_moves(board, e):
 
 def game():
     display(board)
+    start_mode = str(input("Would you like to go first? (Y/N)"))
+    if start_mode == "N":
+        _, _, best_move = eval_pos(board, -1, 0)
+        board[:] = best_move
+        display(board)
+    elif start_mode == "Y":
+        pass
     while True:
         input_move = int(input("Make your move (0-8): "))
         if input_move > 8 or input_move < 0 or board[input_move] != "_":
