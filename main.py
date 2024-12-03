@@ -1,6 +1,6 @@
 import math
 
-# CONSTANTS
+#CONSTANTS
 INFTY = math.inf
 board = ["_"] * 9
 
@@ -13,18 +13,18 @@ def display(board):
 def eval_pos(board, turn, ply):
     moves = list_moves(board, "X" if turn == 1 else "O")
 
-    # Check for win condition
+    #Check for win condition
     winner = check_winner(board)
     if winner == "X":
-        return (INFTY, ply, board)  # Player X wins
+        return (INFTY, ply, board) #Player X wins
     elif winner == "O":
-        return (-INFTY, ply, board)  # Player O wins
+        return (-INFTY, ply, board) #Player O wins
     
-    # Check if it's a draw (no moves left and no winner)
+    #Check if it's a draw (no moves left and no winner)
     if len(moves) == 0:
         return (0, ply, board)
 
-    # Minimax to find the best move
+    #Minimax to find the best move
     best_move = moves[0]
     best_move_eval = -INFTY * turn
     best_ply = INFTY
@@ -32,7 +32,7 @@ def eval_pos(board, turn, ply):
     for move in moves:
         eval, next_ply, _ = eval_pos(move, -turn, ply + 1)
         
-        # Update the best move based on evaluation
+        #Update the best move based on evaluation
         if eval * turn > best_move_eval * turn or (eval == best_move_eval and next_ply < best_ply):
             best_move_eval = eval
             best_move = move
@@ -41,11 +41,11 @@ def eval_pos(board, turn, ply):
     return (best_move_eval, best_ply, best_move)
 
 def check_winner(board):
-    # Check rows, columns, and diagonals
+    #Check rows, columns, and diagonals
     win_patterns = [
-        (0, 1, 2), (3, 4, 5), (6, 7, 8),  # Rows
-        (0, 3, 6), (1, 4, 7), (2, 5, 8),  # Columns
-        (0, 4, 8), (2, 4, 6)              # Diagonals
+        (0, 1, 2), (3, 4, 5), (6, 7, 8), # Rows
+        (0, 3, 6), (1, 4, 7), (2, 5, 8), # Columns
+        (0, 4, 8), (2, 4, 6) # Diagonals
     ]
     for i, j, k in win_patterns:
         if board[i] == board[j] == board[k] and board[i] != "_":
